@@ -1,0 +1,106 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RemovingPolylines</title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9uUyT6l-EdgGNTW1kBGz_0WJ278a3MCY&callback=initMap"></script>
+    <style type="text/css">
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /*#floating-panel {
+            position: absolute;
+            top: 10px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            line-height: 30px;
+            padding-left: 10px;
+        }*/
+    </style>
+</head>
+<body>
+    <div id="floating-panel">
+        <input type="button" onclick="removeline()" value="Remove line" />
+        <input type="button" onclick="addline()" value="Restore line" />
+    </div>
+    <div id="map"></div>
+    <script>
+        var map = null;
+        var data = [
+                      {
+                          "lat": 21.030384,
+                          "lng": 105.785236
+                      },
+                      {
+                          "lat": 21.030384,
+                          "lng": 105.785236
+                      },
+                      {
+                          "lat": 21.026614,
+                          "lng": 105.798384
+                      }
+        ];
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: { lat: 21.031055, lng: 105.784706 },
+                mapTypeId: 'terrain'
+            });
+
+            var lineSymbol = {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 8,
+                strokeColor: '#393'
+            };
+
+            flightPath = new google.maps.Polyline({
+                path: data,
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '50%'
+                }],
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            flightPath.setMap(map);
+            animateCircle(flightPath);
+        };
+        function animateCircle(line) {
+            var count = 0;
+            window.setInterval(function () {
+                count = (count + 1) % 200;
+
+                var icons = line.get('icons');
+                icons[0].offset = (count / 2) + '%';
+                line.set('icons', icons);
+            }, 20);
+        }
+
+        function addline() {
+            flightPath.setMap(map);
+
+        }
+        function removeline() {
+            flightPath.setMap(null);
+        }
+    </script>
+</body>
+</html>

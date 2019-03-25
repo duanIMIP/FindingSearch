@@ -1,0 +1,71 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Service</title>
+    <style>
+        #map{
+            width:100%;
+            height:550px;
+        }
+        html, body{
+            width:100%;
+            padding:0;
+            margin:0;
+        }
+    </style>
+
+    <script>
+        function initMap() {
+            var request = {
+                query: 'Cities of VietNam',
+                fields: ['name', 'geometry', 'place_id', 'formatted_address'],
+            };
+            var center = new google.maps.LatLng(20.453951, 106.347054);
+            var map = new google.maps.Map(document.getElementById("map"), {
+                center: center,
+                zoom:5
+            });
+            var infowindow = new google.maps.InfoWindow();
+            service = new google.maps.places.PlacesService(map);
+            service.findPlaceFromQuery(request, function (results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i], map, infowindow);
+                    }
+                    map.setCenter(results[0].geometry.location);
+                }
+            });            
+        }
+
+        function createMarker(place, map, infowindow) {
+            var marker = new google.maps.Marker({
+                position: place.geometry.location,
+                map: map
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                var contentMarker = "";
+                contentMarker += "Name: " + place.name + "<br/>";
+                contentMarker += "Place Id: " + place.place_id + "<br/>";
+                contentMarker += "Formatted Address: " + place.formatted_address + "<br/>";
+                infowindow.setContent(contentMarker);
+                infowindow.open(map, this);
+                window.setTimeout(function () {
+                    map.setZoom(map.getZoom() + 2);
+                    map.setCenter(marker.getPosition());                    
+                }, 1000);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9uUyT6l-EdgGNTW1kBGz_0WJ278a3MCY&callback=initMap&libraries=places"></script>
+</body>
+</html>

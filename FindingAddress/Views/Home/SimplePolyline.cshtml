@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SimplePolyline</title>
+    <style type="text/css">
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9uUyT6l-EdgGNTW1kBGz_0WJ278a3MCY&callback=initMap"></script>
+    <script async defer src="/Assets/GoogleMapAPI/src/dataKaraoke.json"></script>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        var data = [
+  {
+      "lat": 21.030384,
+      "lng": 105.785236
+  },
+  {
+      "lat": 21.030384,
+      "lng": 105.785236
+  },
+  {
+      "lat": 21.026614,
+      "lng": 105.798384
+  }
+        ]
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 18,
+                center: { lat: 21.031055, lng: 105.784706 },
+                mapTypeId: 'terrain'
+            });
+
+            var flightPath = new google.maps.Polyline({
+                path: data,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            flightPath.setMap(map);
+        }
+    </script>
+
+
+</body>
+</html>

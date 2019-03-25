@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <style type="text/css">
+        #map {
+            height: 500px;
+        }
+
+        html, body {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var TILE_SIZE = 256;
+        function initMap() {
+            var hanoi = new google.maps.LatLng(21.027763, 105.834160);
+
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 6,
+                center: hanoi
+            });
+
+            var coordInfoWindow = new google.maps.InfoWindow();
+            coordInfoWindow.setContent(createInfoWindowContent(hanoi, map.getZoom()));
+            coordInfoWindow.setPosition(hanoi);
+            coordInfoWindow.open(map);
+        }
+
+        function createInfoWindowContent(latlng, zoom) {
+            return [
+                "Ha Noi",
+                "map: " + latlng,
+                "Zoom: " + zoom
+            ].join("<br>")
+
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3FLJoQuxzzPCNbW4R8myJvNM6Cfg2HeA&callback=initMap"></script>
+</body>
+</html>

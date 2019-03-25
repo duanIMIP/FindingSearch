@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MarkerClustering</title>
+</head>
+<body>
+    <style type="text/css">
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9uUyT6l-EdgGNTW1kBGz_0WJ278a3MCY&callback=initMap"></script>
+    <script src="~/Assets/GoogleMapAPI/src/markerclusterer.js"></script>
+    <script src="~/Assets/GoogleMapAPI/src/dataKaraoke.json"></script>
+
+    <script type="text/javascript">
+        var markerClusterer = null;
+        var map = null;
+        var imageUrl = 'https://chart.apis.google.com/chart?cht=mm&chs=24x32&' + 'chco=FFFFFF,008CFF,000000&ext=.png';
+        var locations = [
+        { lat: 21.013131, lng: 105.848385 },
+        { lat: 21.011328, lng: 105.850187 },
+        { lat: 21.009726, lng: 105.850444 },
+        { lat: 21.011629, lng: 105.853941 },
+        { lat: 21.011321, lng: 105.850693 },
+        { lat: 21.001581, lng: 105.849746 },
+        //{ lat: -35.304724, lng: 148.662905 },
+        //{ lat: -36.817685, lng: 175.699196 },
+        //{ lat: -36.828611, lng: 175.790222 },
+        //{ lat: -37.750000, lng: 145.116667 },
+        //{ lat: -37.759859, lng: 145.128708 },
+        //{ lat: -37.765015, lng: 145.133858 },
+        //{ lat: -37.770104, lng: 145.143299 },
+        //{ lat: -37.773700, lng: 145.145187 },
+        //{ lat: -37.774785, lng: 145.137978 },
+        //{ lat: -37.819616, lng: 144.968119 },
+        //{ lat: -38.330766, lng: 144.695692 },
+        //{ lat: -39.927193, lng: 175.053218 },
+        //{ lat: -41.330162, lng: 174.865694 },
+        //{ lat: -42.734358, lng: 147.439506 },
+        //{ lat: -42.734358, lng: 147.501315 },
+        //{ lat: -42.735258, lng: 147.438000 },
+        //{ lat: -43.999792, lng: 170.463352 }
+        ]
+
+        function initMap() {
+            var hanoi = { lat: 21.012999, lng: 105.845936 }
+            map = new google.maps.Map(document.getElementById("map"), { zoom: 3, center: hanoi });
+
+            var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var markers = locations.map(function (location, index) {
+                return new google.maps.Marker({
+                    position: location,
+                    label: labels[index%labels.lenght]
+                });
+            });
+            var markerCluster = new MarkerClusterer(map, markers, { imagePath: '/Assets/GoogleMapAPI/images/m' })
+
+        }
+
+    </script>
+
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+</body>
+</html>

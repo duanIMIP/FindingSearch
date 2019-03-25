@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BasicMap</title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9uUyT6l-EdgGNTW1kBGz_0WJ278a3MCY&callback=initMap"></script>
+    <style type="text/css">
+        #map{
+            height:100%;
+        }
+        html, body{
+            height:100%;
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function CoordMapType(titleSize) {
+            this.titleSize = titleSize;
+        }
+
+        CoordMapType.prototype.maxZoom = 19;
+        CoordMapType.prototype.name = 'Tile #s';
+        CoordMapType.prototype.alt = 'Title Coordinate Map type';
+
+
+    </script>
+</body>
+</html>
