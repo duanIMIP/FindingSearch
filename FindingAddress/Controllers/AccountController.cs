@@ -28,7 +28,6 @@ namespace FindingAddress.Controllers
 
         public AccountController()
         {
-            //khoi tao rong
         }
 
         public AccountController(ApplicationUserManager userManager,
