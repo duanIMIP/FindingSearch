@@ -14,6 +14,8 @@ namespace FindingAddress.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
+
+            //Can xoa doan nay di
         }
 
         // GET api/values/5
